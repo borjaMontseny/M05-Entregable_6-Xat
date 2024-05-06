@@ -1,6 +1,6 @@
 const socket = io();
 
-document.getElementById('create-room').addEventListener('click', function() {
+document.getElementById('create-room').addEventListener('click', function () {
     const room = document.getElementById('room-input').value;
     const username = localStorage.getItem('username') || 'Anonymous';
     if (room.trim()) {
@@ -9,23 +9,23 @@ document.getElementById('create-room').addEventListener('click', function() {
     }
 });
 
-document.getElementById('join-room').addEventListener('click', function() {
+document.getElementById('join-room').addEventListener('click', function () {
     const room = document.getElementById('room-select').value;
     const username = localStorage.getItem('username') || 'Anonymous';
     socket.emit('join room', room, username);
 });
 
-document.getElementById('leave-room').addEventListener('click', function() {
+document.getElementById('leave-room').addEventListener('click', function () {
     const room = socket.room;
     socket.emit('leave room', room);
     document.getElementById('leave-room').style.display = 'none';
 });
 
-document.getElementById('send-button').addEventListener('click', function() {
+document.getElementById('send-button').addEventListener('click', function () {
     sendMessage();
 });
 
-document.getElementById('message-input').addEventListener('keypress', function(event) {
+document.getElementById('message-input').addEventListener('keypress', function (event) {
     if (event.key === "Enter") {
         sendMessage();
         event.preventDefault();
@@ -40,16 +40,14 @@ function sendMessage() {
         const timestamp = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
         socket.emit('chat message', { message, username, timestamp });
         messageInput.value = "";
-        launchConfetti();
+        changeChatBackground(); // Cambiar el fondo del chat
     }
 }
 
-function launchConfetti() {
-    confetti({
-        particleCount: 100,
-        spread: 70,
-        origin: { y: 0.6 }
-    });
+function changeChatBackground() {
+    const colors = ['#ff9999', '#99ff99', '#9999ff', '#ffff99', '#ff99ff', '#99ffff'];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    document.getElementById('chat-box').style.backgroundColor = randomColor;
 }
 
 function updateRoomSelector(newRoom) {
@@ -60,17 +58,17 @@ function updateRoomSelector(newRoom) {
     roomSelect.appendChild(option);
 }
 
-socket.on('chat message', function(data) {
+socket.on('chat message', function (data) {
     const item = document.createElement('div');
     item.innerHTML = `<strong>${data.username}</strong><div>${data.message}</div><small>${data.timestamp}</small>`;
     document.getElementById('chat-box').appendChild(item);
     document.getElementById('chat-box').scrollTop = document.getElementById('chat-box').scrollHeight;
 });
-document.getElementById('theme-toggle').addEventListener('change', function() {
+
+document.getElementById('theme-toggle').addEventListener('change', function () {
     if (this.checked) {
-      document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.setAttribute('data-theme', 'dark');
     } else {
-      document.documentElement.removeAttribute('data-theme');
+        document.documentElement.removeAttribute('data-theme');
     }
-  });
-  
+});
