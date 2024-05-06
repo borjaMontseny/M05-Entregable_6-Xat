@@ -1,0 +1,98 @@
+:root {
+    /* Tema claro (predeterminado) */
+    --background-color: #f8f9fa;
+    --text-color: #333;
+    --navbar-background-color: #007bff;
+    --navbar-text-color: #ffffff;
+    --button-background-color: #007bff;
+    --button-text-color: #ffffff;
+    --input-background-color: #ffffff;
+    --input-border-color: #ccc;
+    --chat-background-color: #ffffff;
+    --chat-border-color: #ccc;
+}
+
+[data-theme="dark"] {
+    /* Tema oscuro */
+    --background-color: #121212;
+    --text-color: #e0e0e0;
+    --navbar-background-color: #181818;
+    --navbar-text-color: #e0e0e0;
+    --button-background-color: #333333;
+    --button-text-color: #ffffff;
+    --input-background-color: #333333;
+    --input-border-color: #444444;
+    --chat-background-color: #252525;
+    --chat-border-color: #444444;
+}
+
+body,
+html {
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+#navbar {
+    background-color: var(--navbar-background-color);
+    color: var(--navbar-text-color);
+    padding: 10px 20px;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+#chat-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    padding: 10px;
+    background: var(--background-color);
+}
+
+#chat-box {
+    position: absolute;
+    top: 40px;
+    bottom: 60px;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+    border: 1px solid var(--chat-border-color);
+    padding: 10px;
+    background: var(--chat-background-color);
+}
+
+#message-input,
+#room-input {
+    flex-grow: 1;
+    margin-right: 10px;
+    padding: 10px;
+    border: 1px solid var(--input-border-color);
+    border-radius: 4px;
+    background-color: var(--input-background-color);
+    color: var(--text-color);
+}
+
+#send-button,
+#create-room,
+#join-room,
+#leave-room {
+    padding: 10px 20px;
+    background-color: var(--button-background-color);
+    color: var(--button-text-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#send-button:hover,
+#create-room:hover,
+#join-room:hover,
+#leave-room:hover {
+    background-color: #0056b3;
+}
